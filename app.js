@@ -4,7 +4,9 @@ const http = require('http').createServer(app);
 const io = require('socket.io')(http);
 const mongoose = require('mongoose');
 
-mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true });
+mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true }).then(() => {
+  console.log('MongoDB Successfully connected!');
+});
 
 io.on('connection', (socket) => {
   socket.on('chat message', (msg) => {
