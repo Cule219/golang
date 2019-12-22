@@ -1,7 +1,10 @@
+require('dotenv').config();
 const app = require('express')();
 const http = require('http').createServer(app);
 const io = require('socket.io')(http);
+const mongoose = require('mongoose');
 
+mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true });
 
 io.on('connection', (socket) => {
   socket.on('chat message', (msg) => {
