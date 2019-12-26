@@ -3,10 +3,13 @@ const app = require('express')();
 const http = require('http').createServer(app);
 const io = require('socket.io')(http);
 const mongoose = require('mongoose');
+const cors = require('cors');
 
 mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true }).then(() => {
   console.log('MongoDB Successfully connected!');
 });
+
+app.use(cors());
 
 io.on('connection', (socket) => {
   socket.on('chat message', (msg) => {
@@ -17,12 +20,10 @@ io.on('connection', (socket) => {
   });
 });
 
-
 const index = require('./routes/index');
-
-app.use('/', index);
 const codewars = require('./routes/code-wars');
 
+app.use('/', index);
 app.use('/', codewars);
 
 
