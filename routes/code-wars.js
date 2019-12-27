@@ -11,7 +11,7 @@ app.get('/:id', (req, res) => {
   axios.get(`https://www.codewars.com/api/v1/code-challenges/${req.params.id}`).then((response) => {
     console.log(response.data);
     res.json(response.data);
-  });
+  }).catch((err) => res.json(err));
 });
 
 module.exports = app;
