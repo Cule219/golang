@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 require('dotenv').config();
 const app = require('express')();
 const http = require('http').createServer(app);

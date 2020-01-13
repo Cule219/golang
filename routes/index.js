@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 /* eslint-disable no-unused-vars */
 const app = require('express')();
 const path = require('path');
@@ -10,20 +11,20 @@ app.get('/', (req, res) => {
   res.json({ bla: 'Bla' });
 });
 
+// this is a list of users used for testing -> later on we should be getting this dynamicly
 const listOfUsers = [
   'Cule219',
 ];
 
 // Once you get the post querry all the users
-app.post('/', (req, res) => {
-  console.log(req.body);
-  webhook.create({ data: req.body }).then((data) => {
-    console.log(data);
-    listOfUsers.forEach((user) => {
-      axios.get(`https://www.codewars.com/api/v1/users/${user}/code-challenges/completed`).then((response) => {
-        console.log(response.data);
-      });
-    });
+app.post('/', async (req, res) => {
+  const data = await webhook.create({ data: req.body });
+  console.log(data);
+  // Here we check all the users, we should specifically check last Kata
+  listOfUsers.forEach(async (user) => {
+    console.log('dsasda');
+    const response = await axios.get(`https://www.codewars.com/api/v1/users/${user}/code-challenges/completed`);
+    console.log('[][][][]', response.data[0]);
   });
 });
 
