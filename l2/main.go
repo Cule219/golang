@@ -17,15 +17,8 @@ func main() {
 
 	// cards.saveToFile("my_cards")
 	cards := newDeckFromFile("my_cards")
+	cards.shuffle()
 	cards.print()
-}
-
-func (d deck) toString() string {
-	return strings.Join([]string(d), ",")
-}
-
-func (d deck) saveToFile(filename string) error {
-	return ioutil.WriteFile(filename, []byte(d.toString()), 0666)
 }
 
 func newDeckFromFile(filename string) deck {
